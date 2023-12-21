@@ -37,7 +37,11 @@ public class Staff {
         this.staffType = staffType;
     }
 
-    //setstaffName method Maybe?
+    public void setStaffName(String firstName, String middleName, String lastName) {
+        this.staffName.setFirstName(firstName);
+        this.staffName.setMiddleName(middleName);
+        this.staffName.setLastName(lastName);
+    }
 
     public String toString() {
         return "Staff ID: " + this.staffID + "\n" +
