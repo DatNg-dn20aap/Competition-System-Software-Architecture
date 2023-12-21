@@ -83,6 +83,14 @@ public class Competitor {
         this.competitorCountry = competitorCountry;
     }
 
-    //maybe add a toString method here
+    @Override
+    public String toString() {
+        return "Competitor ID: " + this.competitorID + "\n" +
+                "Competitor Name: " + this.competitorName.getFullName() + "\n" +
+                "Competitor Level: " + this.competitorLevel.toString() + "\n" +
+                "Competitor Age: " + this.competitorAge + "\n" +
+                "Competitor Gender: " + this.competitorGender + "\n" +
+                "Competitor Country: " + this.competitorCountry;
+    }
 
 }

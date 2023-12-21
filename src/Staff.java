@@ -43,6 +43,7 @@ public class Staff {
         this.staffName.setLastName(lastName);
     }
 
+    @Override
     public String toString() {
         return "Staff ID: " + this.staffID + "\n" +
             "Staff Name: " + this.staffName.getFullName() + "\n" +
