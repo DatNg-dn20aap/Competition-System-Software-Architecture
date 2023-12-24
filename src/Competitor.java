@@ -6,7 +6,7 @@ public class Competitor {
     private int competitorAge;
     private String competitorGender;
     private String competitorCountry;
-    private ArrayList<Integer> ComeptitorScore;
+    private ArrayList<Integer> competitorScore;
 
     public Competitor(String competitorID, Name competitorName, Level competitorLevel, int competitorAge, String competitorGender, String competitorCountry) {
         this.competitorID = competitorID;
@@ -15,7 +15,7 @@ public class Competitor {
         this.competitorAge = competitorAge;
         this.competitorGender = competitorGender;
         this.competitorCountry = competitorCountry;
-        this.ComeptitorScore = new ArrayList<Integer>();
+        this.competitorScore = new ArrayList<Integer>();
     }
 
     public String getCompetitorID() {
@@ -51,19 +51,19 @@ public class Competitor {
     }
 
     public ArrayList<Integer> getScoreArray() {
-        return this.ComeptitorScore;
+        return this.competitorScore;
     }
 
     public double getOverallScore() {
-        return this.ComeptitorScore.stream()
+        return this.competitorScore.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElse(Double.NaN);
     }
 
     public boolean addScore(int score) {
-        if (score >= 0 && score <= 5 && ComeptitorScore.size() < 4 && !ComeptitorScore.contains(score)) {
-            ComeptitorScore.add(score);
+        if (score >= 0 && score <= 5 && this.competitorScore.size() < 4 && !this.competitorScore.contains(score)) {
+            this.competitorScore.add(score);
             return true;
         }
         return false; // Return false if the score can't be added
