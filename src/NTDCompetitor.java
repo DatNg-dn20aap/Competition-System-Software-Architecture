@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class NTDCompetitor {
+public abstract class NTDCompetitor {
     private String competitorID;
     private Name competitorName;
     private Level competitorLevel;
@@ -61,13 +61,7 @@ public class NTDCompetitor {
                 .orElse(Double.NaN);
     }
 
-    public boolean addScore(int score) {
-        if (score >= 0 && score <= 5 && this.competitorScore.size() < 4 && !this.competitorScore.contains(score)) {
-            this.competitorScore.add(score);
-            return true;
-        }
-        return false; // Return false if the score can't be added
-    }
+    public abstract void addScore(int score);
 
     public void setCompetitorID(String competitorID) {
         this.competitorID = competitorID;
