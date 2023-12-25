@@ -54,12 +54,7 @@ public abstract class NTDCompetitor {
         return this.competitorScore;
     }
 
-    public double getOverallScore() {
-        return this.competitorScore.stream()
-                .mapToInt(Integer::intValue)
-                .average()
-                .orElse(Double.NaN);
-    }
+    public abstract double getOverallScore();
 
     public abstract void addScore(int score);
 
