@@ -31,6 +31,12 @@ public class Name {
         return this.firstName + " " + this.middleName + " " + this.lastName;
     }
 
+    public String getInitials() {
+        return (this.firstName.isEmpty() ? "" : this.firstName.substring(0, 1)) +
+                (this.middleName.isEmpty() ? "" : this.middleName.substring(0, 1)) +
+                (this.lastName.isEmpty() ? "" : this.lastName.substring(0, 1));
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

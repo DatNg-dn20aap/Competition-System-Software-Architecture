@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class Competitor {
+public class NTDCompetitor {
     private String competitorID;
     private Name competitorName;
     private Level competitorLevel;
@@ -8,7 +8,7 @@ public class Competitor {
     private String competitorCountry;
     private ArrayList<Integer> competitorScore;
 
-    public Competitor(String competitorID, Name competitorName, Level competitorLevel, int competitorAge, String competitorGender, String competitorCountry) {
+    public NTDCompetitor(String competitorID, Name competitorName, Level competitorLevel, int competitorAge, String competitorGender, String competitorCountry) {
         this.competitorID = competitorID;
         this.competitorName = competitorName;
         this.competitorLevel = competitorLevel;
@@ -95,8 +95,13 @@ public class Competitor {
         this.competitorCountry = competitorCountry;
     }
 
-    @Override
-    public String toString() {
+    public String getShortDetails() {
+        return "CN " + this.competitorID +
+                ", " + this.competitorName.getInitials() +
+                ", Score: " + this.getOverallScore();
+    }
+
+    public String getFullDetails() {
         return "Competitor ID: " + this.competitorID + "\n" +
                 "Competitor Name: " + this.competitorName.getFullName() + "\n" +
                 "Competitor Country: " + this.competitorCountry + "\n" +
