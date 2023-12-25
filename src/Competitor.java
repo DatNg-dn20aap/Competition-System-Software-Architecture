@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public abstract class NTDCompetitor {
+public abstract class Competitor {
     private String competitorID;
     private Name competitorName;
     private Level competitorLevel;
@@ -8,7 +8,7 @@ public abstract class NTDCompetitor {
     private String competitorCountry;
     private ArrayList<Integer> competitorScore;
 
-    public NTDCompetitor(String competitorID, Name competitorName, Level competitorLevel, int competitorAge, String competitorGender, String competitorCountry) {
+    public Competitor(String competitorID, Name competitorName, Level competitorLevel, int competitorAge, String competitorGender, String competitorCountry) {
         this.competitorID = competitorID;
         this.competitorName = competitorName;
         this.competitorLevel = competitorLevel;
