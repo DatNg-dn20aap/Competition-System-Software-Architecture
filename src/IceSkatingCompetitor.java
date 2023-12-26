@@ -43,7 +43,7 @@ public class IceSkatingCompetitor extends Competitor {
 
     @Override
     public void addScore(int score) {
-        if (score >= 0 && score <= 5 && this.getScoreArray().size() < 6 && !this.getScoreArray().contains(score)) {
+        if (score >= 0 && score <= 5 && this.getScoreArray().size() < 6) {
             this.getScoreArray().add(score);
         }
     }

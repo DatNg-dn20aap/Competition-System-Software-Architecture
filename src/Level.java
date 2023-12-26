@@ -1,3 +1,3 @@
 public enum Level {
-    Noivce, Standard, Verteran
+    Novice, Standard, Veteran
 }

@@ -28,7 +28,7 @@ public class Name {
     }
 
     public String getFullName() {
-        return this.firstName + " " + this.middleName + " " + this.lastName;
+        return firstName + " " + (middleName != null && !middleName.isEmpty() ? middleName + " " : "") + lastName;
     }
 
     public String getInitials() {

@@ -43,7 +43,7 @@ public class JavelinThrowCompetitor extends Competitor {
 
     @Override
     public void addScore(int score) {
-        if (score >= 0 && score <= 5 && this.getScoreArray().size() < 4 && !this.getScoreArray().contains(score)) {
+        if (score >= 0 && score <= 5 && this.getScoreArray().size() < 4) {
             this.getScoreArray().add(score);
         }
     }
