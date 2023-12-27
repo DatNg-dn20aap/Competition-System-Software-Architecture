@@ -56,7 +56,7 @@ public class CompetitorList {
             if (nameParts.length == 3) {
                 competitorName = new Name(nameParts[0], nameParts[1], nameParts[2]);
             } else if (nameParts.length == 2) {
-                competitorName = new Name(nameParts[0], nameParts[1]);
+                competitorName = new Name(nameParts[0], "", nameParts[1]);
             } else {
                 // Handle other cases or throw an exception
                 throw new IllegalArgumentException("Invalid name format");
