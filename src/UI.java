@@ -15,24 +15,27 @@ public class UI extends JFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        // Main panel with a button
+        // Main panel with a button to show the white page
         JPanel mainPanel = new JPanel();
-        JButton button = new JButton("Show White Page");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "WhitePage");
-            }
-        });
-        mainPanel.add(button);
+        JButton toWhitePageButton = new JButton("Show White Page");
+        toWhitePageButton.addActionListener(e -> cardLayout.show(cardPanel, "WhitePage"));
+        mainPanel.add(toWhitePageButton);
 
-        // White page panel
+        // White page panel with a button to show the red page
         JPanel whitePanel = new JPanel();
         whitePanel.setBackground(Color.WHITE);
+        JButton toRedPageButton = new JButton("Show Red Page");
+        toRedPageButton.addActionListener(e -> cardLayout.show(cardPanel, "RedPage"));
+        whitePanel.add(toRedPageButton);
+
+        // Red page panel
+        JPanel redPanel = new JPanel();
+        redPanel.setBackground(Color.RED);
 
         // Add panels to cardPanel
         cardPanel.add(mainPanel, "MainPage");
         cardPanel.add(whitePanel, "WhitePage");
+        cardPanel.add(redPanel, "RedPage");
 
         // Add cardPanel to the frame
         add(cardPanel);
