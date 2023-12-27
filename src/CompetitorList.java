@@ -195,10 +195,48 @@ public class CompetitorList {
         return frequency;
     }
 
+    public int getMaxScore() {
+        int maxScore = Integer.MIN_VALUE;
+        for (Competitor competitor : competitorList) {
+            for (int score : competitor.getScoreArray()) {
+                if (score > maxScore) {
+                    maxScore = score;
+                }
+            }
+        }
+        return maxScore;
+    }
+
+    public int getMinScore() {
+        int minScore = Integer.MAX_VALUE;
+        for (Competitor competitor : competitorList) {
+            for (int score : competitor.getScoreArray()) {
+                if (score < minScore) {
+                    minScore = score;
+                }
+            }
+        }
+        return minScore;
+    }
+
+    public Map<Integer, Integer> getScoreDistribution() {
+        Map<Integer, Integer> scoreDistribution = new HashMap<>();
+        for (Competitor competitor : competitorList) {
+            for (int score : competitor.getScoreArray()) {
+                scoreDistribution.put(score, scoreDistribution.getOrDefault(score, 0) + 1);
+            }
+        }
+        return scoreDistribution;
+    }
+
     public void generateReport() {
         String report = "Competitor Details:\n" + this.getAllCompetitorDetails();
-        report += "\nTop Competitor:\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getFullDetails() : "No competitors found.");
+        report += "\n-------Top Competitor:-------\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getFullDetails() : "No competitors found.");
+        report += "\n-------Score Statistics:-------";
         report += "\nAverage Score: " + this.getAverageScore();
+        report += "\nMax Score: " + this.getMaxScore();
+        report += "\nMin Score: " + this.getMinScore();
+        report += "\nScore Distribution: " + this.getScoreDistribution().toString();
         report += "\nScore Frequency Report: " + this.getScoreFrequency().toString();
         // Add other summary statistics to the report as needed
 
