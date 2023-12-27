@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 public class CompetitorList {
     //
     private ArrayList<Competitor> competitorList;
@@ -151,4 +153,45 @@ public class CompetitorList {
         }
         return null;
     }
+
+    // Method to get full details of all competitors
+    public String getAllCompetitorDetails() {
+        StringBuilder details = new StringBuilder();
+        for (Competitor competitor : competitorList) {
+            details.append(competitor.getFullDetails()).append("\n");
+        }
+        return details.toString();
+    }
+
+    // Method to find the competitor with the highest score
+    public Competitor getTopCompetitor() {
+        Competitor topCompetitor = null;
+        for (Competitor competitor : competitorList) {
+            if (topCompetitor == null || competitor.getOverallScore() > topCompetitor.getOverallScore()) {
+                topCompetitor = competitor;
+            }
+        }
+        return topCompetitor;
+    }
+
+    // Example method for a summary statistic - average score
+    public double getAverageScore() {
+        double totalScore = 0;
+        for (Competitor competitor : competitorList) {
+            totalScore += competitor.getOverallScore();
+        }
+        return competitorList.isEmpty() ? 0 : totalScore / competitorList.size();
+    }
+
+    // Method to generate a frequency report of scores
+    public Map<Integer, Integer> getScoreFrequency() {
+        Map<Integer, Integer> frequency = new HashMap<>();
+        for (Competitor competitor : competitorList) {
+            for (int score : competitor.getScoreArray()) {
+                frequency.put(score, frequency.getOrDefault(score, 0) + 1);
+            }
+        }
+        return frequency;
+    }
+
 }
