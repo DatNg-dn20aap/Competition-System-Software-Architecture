@@ -30,19 +30,25 @@ public class CompetitorList {
     // Method to parse a line of CSV and create a Competitor object
     private Competitor parseCompetitor(String line, String type) {
         String[] data = line.split(",");
+
         if (data.length >= 10) {
             String competitorID = data[0];
-
-            // Split the name and create a Name object
-            String[] nameParts = data[1].split(" ");
+            String[] nameParts = data[1].trim().split(" ");
             Name competitorName;
-            if (nameParts.length == 3) {
-                competitorName = new Name(nameParts[0], nameParts[1], nameParts[2]);
-            } else if (nameParts.length == 2) {
-                competitorName = new Name(nameParts[0], "", nameParts[1]);
-            } else {
-                // Handle other cases or throw an exception
-                throw new IllegalArgumentException("Invalid name format");
+
+            // Parsing name based on the number of parts
+            switch (nameParts.length) {
+                case 2:
+                    // Assuming format: First Name, Last Name
+                    competitorName = new Name(nameParts[0], nameParts[1]);
+                    break;
+                case 3:
+                    // Assuming format: First Name, Middle Name, Last Name
+                    competitorName = new Name(nameParts[0], nameParts[2], nameParts[1]);
+                    break;
+                default:
+                    // Handle other cases or throw an exception
+                    throw new IllegalArgumentException("Invalid name format: " + data[1]);
             }
 
             Level competitorLevel = Level.valueOf(data[2]);
@@ -59,6 +65,7 @@ public class CompetitorList {
             }
 
             Competitor competitor;
+
             if ("IceSkating".equals(type)) {
                 competitor = new IceSkatingCompetitor(competitorID, competitorName, competitorLevel, competitorAge, competitorGender, competitorCountry);
             } else if ("JavelinThrow".equals(type)) {
