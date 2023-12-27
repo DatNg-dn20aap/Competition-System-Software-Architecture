@@ -1,3 +1,3 @@
 public enum StaffTypes {
-    Official, Referee, DataEntry, Emergency
+    Official, Referee, DataEntry, Emergency, Audience
 }
