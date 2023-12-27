@@ -159,6 +159,7 @@ public class CompetitorList {
         StringBuilder details = new StringBuilder();
         for (Competitor competitor : competitorList) {
             details.append(competitor.getFullDetails()).append("\n");
+            details.append("------------------------------- \n");
         }
         return details.toString();
     }
@@ -194,4 +195,14 @@ public class CompetitorList {
         return frequency;
     }
 
+    public void generateReport() {
+        String report = "Competitor Details:\n" + this.getAllCompetitorDetails();
+        report += "\nTop Competitor:\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getFullDetails() : "No competitors found.");
+        report += "\nAverage Score: " + this.getAverageScore();
+        report += "\nScore Frequency Report: " + this.getScoreFrequency().toString();
+        // Add other summary statistics to the report as needed
+
+        // Output the report to a file or System.out
+        System.out.println(report); // Temporary for debbugging
+    }
 }
