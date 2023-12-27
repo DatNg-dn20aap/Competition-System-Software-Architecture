@@ -10,25 +10,6 @@ public class CompetitorList {
     //
     private ArrayList<Competitor> competitorList;
 
-    public CompetitorList() {
-        this.competitorList = new ArrayList<Competitor>();
-    }
-
-    public CompetitorList(String filename, String competitorType) {
-        this.competitorList = new ArrayList<Competitor>();
-        this.loadCompetitorsFromFile(filename, competitorType);
-    }
-
-    // Method to load Ice Skating Competitors
-    public void loadIceSkatingCompetitorsFromFile(String filename) {
-        loadCompetitorsFromFile(filename, "IceSkating");
-    }
-
-    // Method to load Javelin Throw Competitors
-    public void loadJavelinThrowCompetitorsFromFile(String filename) {
-        loadCompetitorsFromFile(filename, "JavelinThrow");
-    }
-
     // Generic method to read competitors from a file
     private void loadCompetitorsFromFile(String filename, String type) {
         try {
@@ -96,22 +77,6 @@ public class CompetitorList {
         return null;
     }
 
-
-    // Method to save competitors to a file
-    public void saveCompetitorsToFile(String filename) {
-        try {
-            FileWriter writer = new FileWriter(filename);
-            for (Competitor competitor : competitorList) {
-                writer.write(formatCompetitorForCsv(competitor) + "\n");
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file: " + filename);
-            e.printStackTrace();
-        }
-    }
-
     // Helper method to format a Competitor object into a CSV line
     private String formatCompetitorForCsv(Competitor competitor) {
         StringBuilder csvLine = new StringBuilder();
@@ -133,13 +98,62 @@ public class CompetitorList {
 
 
     //public methods
+    public CompetitorList() {
+        this.competitorList = new ArrayList<Competitor>();
+    }
+
+    public CompetitorList(String filename, String competitorType) {
+        this.competitorList = new ArrayList<Competitor>();
+        this.loadCompetitorsFromFile(filename, competitorType);
+    }
+
+    // Method to load Ice Skating Competitors
+    public void loadIceSkatingCompetitorsFromFile(String filename) {
+        loadCompetitorsFromFile(filename, "IceSkating");
+    }
+
+    // Method to load Javelin Throw Competitors
+    public void loadJavelinThrowCompetitorsFromFile(String filename) {
+        loadCompetitorsFromFile(filename, "JavelinThrow");
+    }
+
+    // Method to save competitors to a file
+    public void saveCompetitorsToFile(String filename) {
+        try {
+            FileWriter writer = new FileWriter(filename);
+            for (Competitor competitor : competitorList) {
+                writer.write(formatCompetitorForCsv(competitor) + "\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + filename);
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Competitor> getCompetitorList() {
         return this.competitorList;
     }
 
-    public void addCompetitor(Competitor competitor) {
-        this.competitorList.add(competitor);
+    public boolean addCompetitor(Competitor competitor) {
+        // Check if the competitor is an instance of IceSkatingCompetitor or JavelinThrowCompetitor
+        if (competitor instanceof IceSkatingCompetitor || competitor instanceof JavelinThrowCompetitor) {
+            // Check if a competitor with the same ID already exists in the list
+            for (Competitor existingCompetitor : competitorList) {
+                if (existingCompetitor.getCompetitorID().equals(competitor.getCompetitorID())) {
+                    // Competitor with this ID already exists, do not add
+                    return false;
+                }
+            }
+            // Competitor is unique, add to list
+            competitorList.add(competitor);
+            return true;
+        }
+        // If competitor is not of the specified types, return false or handle differently
+        return false;
     }
+
 
     public void removeCompetitor(Competitor competitor) {
         this.competitorList.remove(competitor);
