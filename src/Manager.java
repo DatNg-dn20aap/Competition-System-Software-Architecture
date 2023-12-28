@@ -19,7 +19,7 @@ public class Manager {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                UI frame = new UI(staffList);
+                UI frame = new UI(staffList, competitorList);
                 frame.setVisible(true);
             }
         });

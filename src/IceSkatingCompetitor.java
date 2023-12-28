@@ -84,6 +84,16 @@ public class IceSkatingCompetitor extends Competitor {
                 "Competitor Age: " + this.getCompetitorAge() + "\n" +
                 "Competitor Overall Score: " + this.getOverallScore();
     }
+
+    @Override
+    public String getCompetitorExtraDetails(){
+        return "Competitor ID: " + this.getCompetitorID() + "\n" +
+                "Competitor Name: " + this.getCompetitorName().getFullName() + "\n" +
+                "Competitor Country: " + this.getCompetitorCountry() + "\n" +
+                "Competitor Level: " + this.getCompetitorLevel().toString() + "\n" +
+                "Competitor Age: " + this.getCompetitorAge() + "\n" +
+                "Competitor Gender: " + this.getCompetitorGender();
+    }
 }
 
 

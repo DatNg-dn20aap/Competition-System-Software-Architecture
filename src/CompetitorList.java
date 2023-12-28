@@ -103,7 +103,6 @@ public class CompetitorList {
         return csvLine.toString();
     }
 
-
     //public methods
     public CompetitorList() {
         this.competitorList = new ArrayList<Competitor>();
@@ -166,7 +165,7 @@ public class CompetitorList {
         this.competitorList.remove(competitor);
     }
 
-    public Competitor getCompetitor(String competitorID) {
+    public Competitor getCompetitorByID(String competitorID) {
         for (Competitor competitor : competitorList) {
             if (competitor.getCompetitorID().equals(competitorID)) {
                 return competitor;
@@ -175,11 +174,32 @@ public class CompetitorList {
         return null;
     }
 
+    public String getCompetitorDetails(Competitor competitor) {
+        return competitor.getFullDetails();
+    }
+
+    public String getCompetitorExtraDetails(Competitor competitor) {
+        return competitor.getCompetitorExtraDetails();
+    }
+
     // Method to get full details of all competitors
     public String getAllCompetitorDetails() {
         StringBuilder details = new StringBuilder();
         for (Competitor competitor : competitorList) {
             details.append(competitor.getFullDetails()).append("\n");
+            details.append("------------------------------- \n");
+        }
+        return details.toString();
+    }
+
+    public String getCompetitorScores(Competitor competitor) {
+        return competitor.getScoreArray().toString();
+    }
+
+    public String getAllShortDetails() {
+        StringBuilder details = new StringBuilder();
+        for (Competitor competitor : competitorList) {
+            details.append(competitor.getShortDetails()).append("\n");
             details.append("------------------------------- \n");
         }
         return details.toString();
@@ -250,7 +270,7 @@ public class CompetitorList {
         return scoreDistribution;
     }
 
-    public void generateReport() {
+    public String generateReport() {
         String report = "Competitor Details:\n" + this.getAllCompetitorDetails();
         report += "\n-------Top Competitor:-------\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getFullDetails() : "No competitors found.");
         report += "\n-------Score Statistics:-------";
@@ -259,9 +279,22 @@ public class CompetitorList {
         report += "\nMin Score: " + this.getMinScore();
         report += "\nScore Distribution: " + this.getScoreDistribution().toString();
         report += "\nScore Frequency Report: " + this.getScoreFrequency().toString();
-        // Add other summary statistics to the report as needed
-
         // Output the report to a file or System.out
         System.out.println(report); // Temporary for debbugging
+        return report;
     }
+
+    public String generateLimitedReport() {
+        String report = "Competitor Details:\n" + this.getAllShortDetails();
+        report += "\n-------Top Competitor:-------\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getShortDetails() : "No competitors found.");
+        report += "\n-------Score Statistics:-------";
+        report += "\nAverage Score: " + this.getAverageScore();
+        report += "\nMax Score: " + this.getMaxScore();
+        report += "\nMin Score: " + this.getMinScore();
+        report += "\nScore Distribution: " + this.getScoreDistribution().toString();
+        // Output the report to a file or System.out
+        System.out.println(report); // Temporary for debugging
+        return report;
+    }
+
 }
