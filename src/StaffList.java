@@ -39,5 +39,8 @@ public class StaffList {
         return null;
     }
 
+    public ArrayList<Staff> getsStaffList(){
+        return this.staffList;
+    }
 
 }

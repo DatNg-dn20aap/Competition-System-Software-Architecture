@@ -1,3 +1,5 @@
+import javax.swing.SwingUtilities;
+
 public class Manager {
     private static CompetitorList competitorList;
     private static StaffList staffList;
@@ -14,5 +16,12 @@ public class Manager {
         //temporary placeholder
         Manager manager = new Manager("IceSkatingCompetitors.csv","IceSkating");
         competitorList.generateReport();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                UI frame = new UI(staffList);
+                frame.setVisible(true);
+            }
+        });
     }
 }
