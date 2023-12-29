@@ -165,6 +165,19 @@ public class CompetitorList {
         this.competitorList.remove(competitor);
     }
 
+    public void alterCompetitorDetails(String competitorID, Name newName, Level newLevel, int newAge, String newGender, String newCountry) {
+        for (Competitor competitor : competitorList) {
+            if (competitor.getCompetitorID().equals(competitorID)) {
+                competitor.setCompetitorName(newName.getFirstName(), newName.getMiddleName(), newName.getLastName());
+                competitor.setCompetitorLevel(newLevel);
+                competitor.setCompetitorAge(newAge);
+                competitor.setCompetitorGender(newGender);
+                competitor.setCompetitorCountry(newCountry);
+                break;
+            }
+        }
+    }
+
     public Competitor getCompetitorByID(String competitorID) {
         for (Competitor competitor : competitorList) {
             if (competitor.getCompetitorID().equals(competitorID)) {

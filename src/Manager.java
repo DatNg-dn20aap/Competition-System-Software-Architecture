@@ -16,7 +16,6 @@ public class Manager {
         //temporary placeholder
         Manager manager = new Manager("IceSkatingCompetitors.csv","IceSkating");
         competitorList.generateReport();
-
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 UI frame = new UI(staffList, competitorList);

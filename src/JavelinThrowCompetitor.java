@@ -48,6 +48,26 @@ public class JavelinThrowCompetitor extends Competitor {
         }
     }
 
+    public void setCompetitorLevel(Level competitorLevel) {
+        super.setCompetitorLevel(competitorLevel);
+    }
+
+    public void setCompetitorName(String firstName, String middleName, String lastName) {
+        super.setCompetitorName(firstName, middleName, lastName);
+    }
+
+    public void setCompetitorAge(int competitorAge) {
+        super.setCompetitorAge(competitorAge);
+    }
+
+    public void setCompetitorGender(String competitorGender) {
+        super.setCompetitorGender(competitorGender);
+    }
+
+    public void setCompetitorCountry(String competitorCountry) {
+        super.setCompetitorCountry(competitorCountry);
+    }
+
     @Override
     public double getOverallScore() {
         return this.getScoreArray().stream()
