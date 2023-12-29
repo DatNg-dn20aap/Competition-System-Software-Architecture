@@ -17,7 +17,7 @@ public class Manager {
         Manager manager = new Manager();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                UI frame = new UI(staffList, competitorList);
+                GUI frame = new GUI(staffList, competitorList);
                 frame.setVisible(true);
             }
         });

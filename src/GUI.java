@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.SwingUtilities;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-public class UI extends JFrame {
+public class GUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private JTextField staffIDField;
     private StaffList staffList;
     private CompetitorList competitorList;
 
-    public UI(StaffList staffList, CompetitorList competitorList) {
+    public GUI(StaffList staffList, CompetitorList competitorList) {
         this.staffList = staffList;
         this.competitorList = competitorList;
         setTitle("Staff Management System");
@@ -67,7 +66,7 @@ public class UI extends JFrame {
         if (staff != null) {
             cardLayout.show(cardPanel, staff.getStaffType().toString());
         } else {
-            JOptionPane.showMessageDialog(UI.this, "Staff ID not found");
+            JOptionPane.showMessageDialog(GUI.this, "Staff ID not found");
         }
     }
 
