@@ -7,11 +7,20 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 public class CompetitorList {
-    //
     private ArrayList<Competitor> competitorList;
 
+    // Constructor
+    //public methods
+    public CompetitorList() {
+        this.competitorList = new ArrayList<Competitor>();
+    }
+    public CompetitorList(String filename, String competitorType) {
+        this.competitorList = new ArrayList<Competitor>();
+        this.loadCompetitorsFromFile(filename, competitorType);
+    }
+
     // Generic method to read competitors from a file
-    private void loadCompetitorsFromFile(String filename, String type) {
+    public void loadCompetitorsFromFile(String filename, String type) {
         try {
             Scanner scanner = new Scanner(new File(filename));
             while (scanner.hasNextLine()) {
@@ -101,16 +110,6 @@ public class CompetitorList {
         }
 
         return csvLine.toString();
-    }
-
-    //public methods
-    public CompetitorList() {
-        this.competitorList = new ArrayList<Competitor>();
-    }
-
-    public CompetitorList(String filename, String competitorType) {
-        this.competitorList = new ArrayList<Competitor>();
-        this.loadCompetitorsFromFile(filename, competitorType);
     }
 
     // Method to load Ice Skating Competitors
@@ -298,7 +297,7 @@ public class CompetitorList {
     }
 
     public String generateLimitedReport() {
-        String report = "Competitor Details:\n" + this.getAllShortDetails();
+        String report = "Competitor Limited Details:\n" + this.getAllShortDetails();
         report += "\n-------Top Competitor:-------\n" + (this.getTopCompetitor() != null ? this.getTopCompetitor().getShortDetails() : "No competitors found.");
         report += "\n-------Score Statistics:-------";
         report += "\nAverage Score: " + this.getAverageScore();

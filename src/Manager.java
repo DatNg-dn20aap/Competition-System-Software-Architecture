@@ -5,8 +5,8 @@ public class Manager {
     private static StaffList staffList;
 
     //"IceSkating" or "JavelinThrow" for Filetype
-    public Manager(String filename,String filetype) {
-        competitorList = new CompetitorList(filename,filetype);
+    public Manager() {
+        competitorList = new CompetitorList();
         staffList = new StaffList();
     }
 
@@ -14,8 +14,7 @@ public class Manager {
     // Main method to run the application
     public static void main(String[] args) {
         //temporary placeholder
-        Manager manager = new Manager("IceSkatingCompetitors.csv","IceSkating");
-        competitorList.generateReport();
+        Manager manager = new Manager();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 UI frame = new UI(staffList, competitorList);

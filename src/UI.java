@@ -28,43 +28,77 @@ public class UI extends JFrame {
 
     private void createMainPanel() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout()); // Set to BorderLayout for better arrangement
+        mainPanel.setLayout(new BorderLayout());
 
-        // Create and add title label
-        JLabel titleLabel = new JLabel("Main Screen", JLabel.CENTER); // Center-aligned title
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set font for title (optional)
-        mainPanel.add(titleLabel, BorderLayout.NORTH); // Add the title label at the top
+        JLabel titleLabel = new JLabel("Main Screen", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Panel for ID input
         JPanel idInputPanel = new JPanel();
         JLabel idInputLabel = new JLabel("Enter Your ID here:");
         staffIDField = new JTextField(10);
-
         JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String staffID = staffIDField.getText();
-                Staff staff = staffList.getStaffFromID(staffID);
+        submitButton.addActionListener(e -> processStaffID());
 
-                if (staff != null) {
-                    cardLayout.show(cardPanel, staff.getStaffType().toString());
-                } else {
-                    JOptionPane.showMessageDialog(UI.this, "Staff ID not found");
-                }
-            }
-        });
-
-        // Add components to the ID input panel
         idInputPanel.add(idInputLabel);
         idInputPanel.add(staffIDField);
         idInputPanel.add(submitButton);
-
-        // Add the ID input panel to the center of the main panel
         mainPanel.add(idInputPanel, BorderLayout.CENTER);
 
-        // Finally, add the main panel to the cardPanel
+        // Panel for Load and Save buttons
+        JPanel filePanel = new JPanel(new GridLayout(2, 1)); // 2 rows, 1 column
+
+        JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(e -> loadCompetitors());
+        filePanel.add(loadButton);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> saveCompetitors());
+        filePanel.add(saveButton);
+
+        mainPanel.add(filePanel, BorderLayout.SOUTH);
         cardPanel.add(mainPanel, "MainPage");
+    }
+
+    private void processStaffID() {
+        String staffID = staffIDField.getText();
+        Staff staff = staffList.getStaffFromID(staffID);
+
+        if (staff != null) {
+            cardLayout.show(cardPanel, staff.getStaffType().toString());
+        } else {
+            JOptionPane.showMessageDialog(UI.this, "Staff ID not found");
+        }
+    }
+
+    private void saveCompetitors() {
+        String filename = JOptionPane.showInputDialog(this, "Enter filename to save (without extension):", "Save Competitors", JOptionPane.QUESTION_MESSAGE);
+        if (filename != null && !filename.trim().isEmpty()) {
+            // Add .csv extension if not present
+            if (!filename.endsWith(".csv")) {
+                filename += ".csv";
+            }
+
+            competitorList.saveCompetitorsToFile(filename.trim());
+            JOptionPane.showMessageDialog(this, "Competitors saved to " + filename, "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Filename is required.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void loadCompetitors() {
+        String filename = JOptionPane.showInputDialog(this, "Enter filename to load:", "Load Competitors", JOptionPane.QUESTION_MESSAGE);
+        if (filename != null && !filename.trim().isEmpty()) {
+            Object[] options = {"IceSkating", "JavelinThrow"};
+            String type = (String) JOptionPane.showInputDialog(this, "Select Competitor Type:", "Load Competitors", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (type != null) {
+                competitorList.loadCompetitorsFromFile(filename.trim(), type);
+                JOptionPane.showMessageDialog(this, "Competitors loaded from " + filename, "Load Successful", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Filename is required.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void createStaffTypePanels() {
@@ -102,12 +136,10 @@ public class UI extends JFrame {
         // Use switch case to handle different panel types
         switch (name) {
             case "Audience":
-                JTextArea reportArea = new JTextArea();
-                reportArea.setEditable(false);
-                String report = competitorList.generateLimitedReport();
-                reportArea.setText(report);
-                JScrollPane scrollPane = new JScrollPane(reportArea);
-                panel.add(scrollPane, BorderLayout.CENTER);
+                JPanel audiencePanel = new JPanel(new GridLayout(3, 1)); // Grid layout for 4 buttons
+                // Create buttons and add them to the refereesPanel
+                addAudiencePanelButtons(audiencePanel);
+                panel.add(audiencePanel, BorderLayout.CENTER);
                 break;
             case "Referee":
                 JPanel refereesPanel = new JPanel(new GridLayout(4, 1)); // Grid layout for 4 buttons
@@ -138,6 +170,12 @@ public class UI extends JFrame {
         }
 
         return panel;
+    }
+
+    private void addAudiencePanelButtons(JPanel audiencePanel) {
+        JButton showGamesLimitedButton = new JButton("Show All Matches Limited Report");
+        showGamesLimitedButton.addActionListener(e -> showAllGamesLimitedReport());
+        audiencePanel.add(showGamesLimitedButton);
     }
 
     private void addRefereePanelButtons(JPanel refereesPanel) {
@@ -196,7 +234,18 @@ public class UI extends JFrame {
         officialPanel.add(alterCompetitorDetails);
     }
 
-    // Placeholder methods for button functionalities
+    private void showAllGamesLimitedReport(){
+        String report = competitorList.generateLimitedReport(); // Call generateReport method
+
+        // Display the report in a dialog box
+        JTextArea textArea = new JTextArea(15, 50); // Set dimensions as needed
+        textArea.setText(report);
+        textArea.setEditable(false); // Make it read-only
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        JOptionPane.showMessageDialog(this, scrollPane, "All Games Limited Report", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void showAllGamesReport() {
         String report = competitorList.generateReport(); // Call generateReport method
 
