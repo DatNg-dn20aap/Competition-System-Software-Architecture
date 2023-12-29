@@ -72,6 +72,10 @@ public abstract class Competitor {
         this.competitorName.setLastName(lastName);
     }
 
+    public boolean hasScores() {
+        return this.competitorScore.size() > 0;
+    }
+
     public void setCompetitorAge(int competitorAge) {
         this.competitorAge = competitorAge;
     }

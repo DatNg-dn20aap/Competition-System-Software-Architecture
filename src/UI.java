@@ -14,7 +14,7 @@ public class UI extends JFrame {
         this.staffList = staffList;
         this.competitorList = competitorList;
         setTitle("Staff Management System");
-        setSize(720, 540);
+        setSize(360, 540);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         cardLayout = new CardLayout();
@@ -28,9 +28,19 @@ public class UI extends JFrame {
 
     private void createMainPanel() {
         JPanel mainPanel = new JPanel();
-        staffIDField = new JTextField(10);
-        JButton submitButton = new JButton("Submit");
+        mainPanel.setLayout(new BorderLayout()); // Set to BorderLayout for better arrangement
 
+        // Create and add title label
+        JLabel titleLabel = new JLabel("Main Screen", JLabel.CENTER); // Center-aligned title
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set font for title (optional)
+        mainPanel.add(titleLabel, BorderLayout.NORTH); // Add the title label at the top
+
+        // Panel for ID input
+        JPanel idInputPanel = new JPanel();
+        JLabel idInputLabel = new JLabel("Enter Your ID here:");
+        staffIDField = new JTextField(10);
+
+        JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,8 +55,15 @@ public class UI extends JFrame {
             }
         });
 
-        mainPanel.add(staffIDField);
-        mainPanel.add(submitButton);
+        // Add components to the ID input panel
+        idInputPanel.add(idInputLabel);
+        idInputPanel.add(staffIDField);
+        idInputPanel.add(submitButton);
+
+        // Add the ID input panel to the center of the main panel
+        mainPanel.add(idInputPanel, BorderLayout.CENTER);
+
+        // Finally, add the main panel to the cardPanel
         cardPanel.add(mainPanel, "MainPage");
     }
 
@@ -222,11 +239,14 @@ public class UI extends JFrame {
             Competitor competitor = competitorList.getCompetitorByID(competitorID.trim());
 
             if (competitor != null) {
-                // Ask user if they want to view full details
-                int response = JOptionPane.showConfirmDialog(this, "Competitor found. Do you want to view full details?", "Competitor Found", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                // Check if competitor has scores
+                if (!competitor.hasScores()) {
+                    JOptionPane.showMessageDialog(this, "Competitor found but has no scores yet.", "No Scores", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
+                int response = JOptionPane.showConfirmDialog(this, "Competitor found. Do you want to view full details?", "Competitor Found", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.YES_OPTION) {
-                    // User chose to view full details
                     viewCompetitorDetails(competitor);
                 }
             } else {
@@ -235,7 +255,6 @@ public class UI extends JFrame {
         } else if (competitorID != null) {
             JOptionPane.showMessageDialog(this, "Please enter a valid Competitor ID.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
         }
-        // User cancelled the operation if competitorID is null
     }
 
     private void viewCompetitorExtraDetails(Competitor competitor) {

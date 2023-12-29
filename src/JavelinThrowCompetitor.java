@@ -40,6 +40,9 @@ public class JavelinThrowCompetitor extends Competitor {
         return super.getScoreArray();
     }
 
+    public boolean hasScores() {
+        return super.hasScores();
+    }
 
     @Override
     public void addScore(int score) {

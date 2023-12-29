@@ -41,6 +41,10 @@ public class IceSkatingCompetitor extends Competitor {
         return super.getScoreArray();
     }
 
+    public boolean hasScores() {
+        return super.hasScores();
+    }
+
     public void setCompetitorLevel(Level competitorLevel) {
         super.setCompetitorLevel(competitorLevel);
     }
